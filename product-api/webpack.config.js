@@ -8,6 +8,10 @@ module.exports = {
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   entry: slsw.lib.entries,
   devtool: slsw.lib.webpack.isLocal ? 'cheap-module-eval-source-map' : 'source-map',
+  // use this option to keep class name of entities
+  optimization: {
+    minimize: false
+  },
   resolve: {
     extensions: ['.mjs', '.json', '.ts'],
     symlinks: false,

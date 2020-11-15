@@ -1,4 +1,6 @@
-import type { Serverless } from 'serverless/aws';
+import "reflect-metadata";
+import { Serverless } from 'serverless/aws';
+require('dotenv').config();
 
 const serverlessConfiguration: Serverless = {
   service: {
@@ -11,8 +13,12 @@ const serverlessConfiguration: Serverless = {
   custom: {
     webpack: {
       webpackConfig: './webpack.config.js',
-      includeModules: true
-    }
+      includeModules: {
+        forceInclude: [
+          'pg'
+        ]
+      }
+    },
   },
   // Add the serverless-webpack plugin
   plugins: ['serverless-webpack'],
@@ -25,11 +31,16 @@ const serverlessConfiguration: Serverless = {
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+      DB_HOST: process.env.DB_HOST,
+      DB_PORT: process.env.DB_PORT,
+      DB_USER: process.env.DB_USER,
+      DB_PASS: process.env.DB_PASS,
+      DB_NAME: process.env.DB_NAME,
     },
   },
   functions: {
     getProductsById: {
-      handler: 'handler.getProductsById',
+      handler: './src/handler.getProductsById',
       events: [
         {
           http: {
@@ -41,7 +52,7 @@ const serverlessConfiguration: Serverless = {
       ]
     },
     getProductsList: {
-      handler: 'handler.getProductsList',
+      handler: './src/handler.getProductsList',
       events: [
         {
           http: {

@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
 import ProductService from '../service/product';
 
@@ -19,6 +20,24 @@ export default class ProductController {
         try {
             const items = await ProductService.findAll();
             return MessageUtil.success(items);
+        } catch (err) {
+            return MessageUtil.error500(err);
+        }
+    }
+
+    async create(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+        try {
+            await ProductService.createProduct(JSON.parse(event.body));
+            return MessageUtil.success({});
+        } catch (err) {
+            return MessageUtil.error500(err);
+        }
+    }
+
+    async update(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+        try {
+            await ProductService.updateProduct(event.pathParameters.id, JSON.parse(event.body));
+            return MessageUtil.success({});
         } catch (err) {
             return MessageUtil.error500(err);
         }

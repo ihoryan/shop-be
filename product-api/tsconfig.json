@@ -10,6 +10,8 @@
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": ["./**/*.ts"],
   "exclude": [

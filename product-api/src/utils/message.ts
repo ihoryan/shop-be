@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { APIGatewayProxyResult } from 'aws-lambda';
 
 enum StatusCode {

@@ -8,3 +8,9 @@ jspm_packages
 # Webpack directories
 .webpack
 .vscode
+
+.idea/
+build/
+tmp/
+temp/
+.env
